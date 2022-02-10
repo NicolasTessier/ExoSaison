@@ -27,6 +27,6 @@
     "rimraf": "^3.0.2"
   },
   "lint-staged": {
-    "*.{js,json,md,html}": "prettier --write"
+    "{*,src/**/*}.{js,json,md,html}": "prettier --write"
   }
 }
