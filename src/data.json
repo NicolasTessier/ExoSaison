@@ -2,7 +2,7 @@
   "seasons": {
     "summer": {
       "name": "Summer",
-      "icon": "☀️",
+      "icon": "☀",
       "next": "autumn",
       "beginAt": { "month": 6, "day": 21 },
       "endAt": { "month": 9, "day": 22 }
@@ -16,7 +16,7 @@
     },
     "winter": {
       "name": "Winter",
-      "icon": "❄️",
+      "icon": "❄",
       "next": "spring",
       "beginAt": { "month": 12, "day": 21 },
       "endAt": { "month": 3, "day": 19 }
