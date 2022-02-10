@@ -12,7 +12,8 @@
     "start": "parcel",
     "format": "prettier --write {*,src/**/*}.{js,json,md,html}",
     "prepare": "husky install",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "commit": "git-cz"
   },
   "dependencies": {
     "date-fns": "^2.28.0",
@@ -23,6 +24,7 @@
     "@parcel/reporter-bundle-analyzer": "^2.3.0",
     "eslint": "^8.8.0",
     "eslint-config-react-app": "^7.0.0",
+    "git-cz": "^4.8.0",
     "husky": "^7.0.4",
     "lint-staged": ">=10",
     "parcel": "^2.3.0",
