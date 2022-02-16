@@ -1,12 +1,11 @@
-import data from "./seasons.json";
-import { isWithinInterval } from "date-fns";
-import { lazy, useEffect, useState, Suspense } from "react";
-import { convertToDate, getSeason } from "./utils";
+import React from "react";
+import { lazy, useState, Suspense } from "react";
+import { getSeason } from "./utils";
 
 import "./App.css";
 import SeasonCard from "./components/SeasonCard";
 import Button from "./components/Button";
-import { Modal } from "./components/Modal";
+import Modal from "./components/Modal";
 
 const NewSeasonCard = lazy(() => import("./components/NewSeasonCard"));
 

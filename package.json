@@ -41,8 +41,8 @@
     "rimraf": "^3.0.2"
   },
   "lint-staged": {
-    "{*,src/**/*}.{js,json,md,html}": "prettier --write",
-    "src/**/*.js": "eslint"
+    "{*,src2/**/*}.{js,json,md,html}": "prettier --write",
+    "src2/**/*.js": "eslint"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -59,7 +59,7 @@
       "\\.css$": "identity-obj-proxy"
     },
     "collectCoverageFrom": [
-      "src/**/*.js",
+      "src2/**/*.js",
       "!**/node modules/**"
     ],
     "coverageReporters": [

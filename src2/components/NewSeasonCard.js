@@ -1,3 +1,4 @@
+import React from "react";
 import { convertToDate, getDateFrom } from "../utils";
 import "../styles/NewSeasonCard.css";
 import "../styles/SeasonCard.css";
@@ -15,14 +16,14 @@ function NewSeasonCard({ season, children }) {
   };
   return (
     <div
-      className="new_season_card season_card"
+      className="season_card"
       style={{ backgroundImage: `url(${season.image})` }}
+      data-testid="next_season"
     >
       <h1 className="new_season_name">{season.name}</h1>
       <p className="new_season_duration">{"Duration " + getDuration()}</p>
       <p className="season_from">
-        <span>In </span>
-        <span>{getDateFrom(season.start)}</span>
+        <span>{"In " + getDateFrom(season.start)}</span>
       </p>
       {children}
     </div>
