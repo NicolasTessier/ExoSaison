@@ -1,51 +1,59 @@
 import React from "react";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
-import App from "./App";
-import data from "./seasons.json";
-import { getSeason } from "./utils";
-import ReactDOM from "react-dom";
+import App, { current } from "./App";
+import data from "./data.json";
 
 describe(App.name, () => {
-  it("renders the season", () => {
+  it("renders the content", () => {
     render(<App />);
-    expect(screen.getByTestId("season")).toBeInTheDocument();
+    expect(screen.getByTestId("content")).toBeInTheDocument();
   });
-  it("renders the button", () => {
+  it("renders the actions", () => {
     render(<App />);
-    expect(screen.getByRole("button")).toBeInTheDocument();
+    expect(screen.getByTestId("actions")).toBeInTheDocument();
   });
+});
 
-  it("not renders the next season", () => {
-    render(<App />);
-    expect(screen.queryByTestId("next_season")).not.toBeInTheDocument();
-  });
-
-  it("renders the next season", () => {
-    ReactDOM.createPortal = jest.fn((element, node) => {
-      return element;
+describe("current", () => {
+  describe("on january", () => {
+    beforeAll(() => {
+      jest.useFakeTimers("modern");
+      jest.setSystemTime(new Date(2022, 0, 1));
     });
-    render(<App />);
-    fireEvent.click(screen.queryByText("And After ?"));
-    expect(screen.getByText("Loading...")).toBeInTheDocument();
+    it("returns winter season", () => {
+      const [id] = current(data.seasons);
+      expect(id).toBe("winter");
+    });
+    afterAll(() => {
+      jest.useRealTimers();
+    });
   });
-});
-
-it("returns correct seasons when we are on january", () => {
-  jest.useFakeTimers("modern");
-  jest.setSystemTime(new Date(2022, 0, 1));
-  const [season, nextSeason] = getSeason();
-  expect(season).toBe(data.seasons[0]);
-  expect(nextSeason).toBe(data.seasons[1]);
-  jest.useRealTimers();
-});
-
-it("returns correct seasons when we are on august", () => {
-  jest.useFakeTimers("modern");
-  jest.setSystemTime(new Date(2022, 8, 1));
-  const [season, nextSeason] = getSeason();
-  expect(season).toBe(data.seasons[2]);
-  expect(nextSeason).toBe(data.seasons[3]);
-  jest.useRealTimers();
+  describe("on june", () => {
+    beforeAll(() => {
+      jest.useFakeTimers("modern");
+      jest.setSystemTime(new Date(2022, 5, 1));
+    });
+    it("returns spring season", () => {
+      const [id] = current(data.seasons);
+      expect(id).toBe("spring");
+    });
+    afterAll(() => {
+      jest.useRealTimers();
+    });
+  });
+  describe("on december", () => {
+    beforeAll(() => {
+      jest.useFakeTimers("modern");
+      jest.setSystemTime(new Date(2021, 11, 30));
+    });
+    it("returns winter season", () => {
+      const [id] = current(data.seasons);
+      expect(id).toBe("winter");
+    });
+    afterAll(() => {
+      jest.useRealTimers();
+    });
+  });
 });
