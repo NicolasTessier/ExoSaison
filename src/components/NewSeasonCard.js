@@ -16,7 +16,7 @@ function NewSeasonCard({ season, children }) {
   };
   return (
     <div
-      className="season_card"
+      className="season_card new_season_card"
       style={{ backgroundImage: `url(${season.image})` }}
       data-testid="next_season"
     >
