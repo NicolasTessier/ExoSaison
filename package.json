@@ -6,7 +6,7 @@
     "url": "https://github.com/NicolasTessier/ExoSaison.git"
   },
   "license": "MIT",
-  "source": "src2/index.html",
+  "source": "src/index.html",
   "scripts": {
     "build": "rimraf dist && parcel build --reporter @parcel/reporter-bundle-analyzer",
     "start": "parcel",
@@ -41,8 +41,8 @@
     "rimraf": "^3.0.2"
   },
   "lint-staged": {
-    "{*,src2/**/*}.{js,json,md,html}": "prettier --write",
-    "src2/**/*.js": "eslint"
+    "{*,src/**/*}.{js,json,md,html}": "prettier --write",
+    "src/**/*.js": "eslint"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -59,7 +59,7 @@
       "\\.css$": "identity-obj-proxy"
     },
     "collectCoverageFrom": [
-      "src2/**/*.js",
+      "src/**/*.js",
       "!**/node modules/**"
     ],
     "coverageReporters": [
