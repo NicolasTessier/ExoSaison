@@ -1,57 +1,61 @@
-import data from "./seasons.json";
+import { lazy, Suspense } from "react";
 import { isWithinInterval } from "date-fns";
-import { lazy, useEffect, useState, Suspense } from "react";
-import { convertToDate } from "./utils";
 
 import "./App.css";
-import SeasonCard from "./components/SeasonCard";
-import Button from "./components/Button";
-import { Modal } from "./components/Modal";
+import Season from "./Season";
+import Modal from "./Modal";
+import data from "./data.json";
 
-const NewSeasonCard = lazy(() => import("./components/NewSeasonCard"));
+const NextSeason = lazy(() => import("./NextSeason"));
+
+const current = Object.entries(data.seasons).filter(([name, season]) => {
+  const currentYear = new Date().getFullYear();
+  if (name === "winter") {
+    return (
+      isWithinInterval(new Date(), {
+        start: new Date(
+          currentYear - 1,
+          season.beginAt.month - 1,
+          season.beginAt.day
+        ),
+        end: new Date(currentYear, season.endAt.month - 1, season.endAt.day),
+      }) ||
+      isWithinInterval(new Date(), {
+        start: new Date(
+          currentYear,
+          season.beginAt.month - 1,
+          season.beginAt.day
+        ),
+        end: new Date(
+          currentYear + 1,
+          season.endAt.month - 1,
+          season.endAt.day
+        ),
+      })
+    );
+  }
+  return isWithinInterval(new Date(), {
+    start: new Date(currentYear, season.beginAt.month - 1, season.beginAt.day),
+    end: new Date(currentYear, season.endAt.month - 1, season.endAt.day),
+  });
+})[0];
 
 function App() {
-  const today = new Date();
-
-  const [season, setSeason] = useState(null);
-  const [nextSeason, setNextSeason] = useState(null);
-  const [modal, setModal] = useState(false);
-
-  useEffect(() => {
-    for (let i = 0; i < data.seasons.length; i++) {
-      const start = convertToDate(data.seasons[i].start);
-      const end = convertToDate(data.seasons[i].end);
-      if (isWithinInterval(today, { start, end })) {
-        setSeason(data.seasons[i]);
-        setNextSeason(data.seasons[(i + 1) % 4]);
-      }
-    }
-  }, []);
-
-  const toggleModal = () => {
-    setModal(!modal);
-  };
-
   return (
-    season && (
-      <div
-        className="app_bg"
-        style={{ backgroundImage: `url(${season.image})` }}
-      >
-        <SeasonCard season={season}>
-          <Button onClick={toggleModal} label="And After ?" />
-        </SeasonCard>
-        {modal && (
-          <Modal>
+    <div className="App-root">
+      <main className="App-main">
+        <div className="App-content">
+          <Season name={current[0]} />
+        </div>
+        <div className="App-actions">
+          <Modal label="Et après ?">
             <Suspense fallback={<div>Loading...</div>}>
-              <NewSeasonCard season={nextSeason}>
-                <Button onClick={toggleModal} label="Got it !" />
-              </NewSeasonCard>
+              <NextSeason name={current[1].next} />
             </Suspense>
           </Modal>
-        )}
-      </div>
-    )
+        </div>
+      </main>
+    </div>
   );
 }
 

@@ -1,12 +1,25 @@
-.app_bg{
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-color: rgba(0,0,0,0.7);
-    background-blend-mode: multiply;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+.App-root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: system-ui;
+}
+
+.App-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.App-content {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.App-actions {
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
