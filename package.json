@@ -6,7 +6,7 @@
     "url": "https://github.com/NicolasTessier/ExoSaison.git"
   },
   "license": "MIT",
-  "source": "src/index.html",
+  "source": "src2/index.html",
   "scripts": {
     "build": "rimraf dist && parcel build --reporter @parcel/reporter-bundle-analyzer",
     "start": "parcel",
